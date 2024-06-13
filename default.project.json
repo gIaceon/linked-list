@@ -1,0 +1,6 @@
+{
+    "name": "linked-list",
+    "tree": {
+        "$path": "src"
+    }
+}
