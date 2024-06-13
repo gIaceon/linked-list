@@ -13,7 +13,7 @@ declare class linked_list<T extends defined> {
 	public forEach(fn: (item: T) => boolean | T | undefined | void): void;
 	public find(compare: (item: T) => boolean): T | undefined;
 	public remove(item: T, destructor?: (item: T) => void, finder?: (item: T) => boolean): void;
-	public clear(): void;
+	public clear(destructor?: (item: T) => void): void;
 	public array(): T[];
 	public add(item: T): () => void;
 }
