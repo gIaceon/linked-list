@@ -10,7 +10,7 @@ declare class linked_list<T extends defined> {
 	static __iter: () => unknown;
 	public head(): T | undefined;
 	public tail(): T | undefined;
-	public forEach(fn: (item: T) => boolean | T | undefined): void;
+	public forEach(fn: (item: T) => boolean | T | undefined | void): void;
 	public find(compare: (item: T) => boolean): T | undefined;
 	public remove(item: T, destructor?: (item: T) => void, finder?: (item: T) => boolean): void;
 	public clear(): void;
