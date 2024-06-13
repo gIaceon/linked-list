@@ -20,7 +20,7 @@ export type linked_list<T> = typeof(setmetatable(
 		head: (self: linked_list<T>) -> T?,
 		tail: (self: linked_list<T>) -> T?,
 		add: (self: linked_list<T>, item: T) -> () -> (),
-		forEach: (self: linked_list<T>, fn: (T) -> ()) -> nil,
+		forEach: (self: linked_list<T>, fn: (T) -> any?) -> nil,
 		clear: (self: linked_list<T>, desctructor: ((T) -> ())?) -> nil,
 		array: (self: linked_list<T>) -> { T },
 		find: (self: linked_list<T>, comp: (current: T) -> boolean) -> T?,
@@ -65,7 +65,7 @@ function linked_list.tail<T>(self: linked_list<T>): T?
 	return current.item
 end
 
-function linked_list.forEach<T>(self: linked_list<T>, iter: (T) -> ())
+function linked_list.forEach<T>(self: linked_list<T>, iter: (T) -> any?)
 	local current = self._head
 
 	if current == nil then
@@ -73,8 +73,11 @@ function linked_list.forEach<T>(self: linked_list<T>, iter: (T) -> ())
 	end
 
 	while current do
-		iter(current.item)
+		local stop = iter(current.item)
 		current = current.next
+		if stop then
+			break
+		end
 	end
 
 	return
@@ -132,6 +135,7 @@ function linked_list.array<T>(self: linked_list<T>): { T }
 	local array: { T } = {}
 	self:forEach(function(item: T)
 		table.insert(array, item)
+		return
 	end)
 	return array
 end
@@ -143,6 +147,7 @@ function linked_list.find<T>(self: linked_list<T>, compare: (item: T) -> boolean
 		if comp then
 			found = item
 		end
+		return found ~= nil
 	end)
 	return found
 end
