@@ -6,6 +6,7 @@ interface list_item<T extends defined> {
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 declare class linked_list<T extends defined> {
+	public constructor(item: T);
 	static __iter: () => unknown;
 	public head(): T | undefined;
 	public tail(): T | undefined;
@@ -18,9 +19,4 @@ declare class linked_list<T extends defined> {
 }
 interface linked_list<T extends defined> extends IterableFunction<T> {}
 
-interface constructor {
-	new <T extends defined>(head?: T): linked_list<T>;
-}
-
-declare const list_constructor: constructor;
-export = list_constructor;
+export = linked_list;
